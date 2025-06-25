@@ -1,0 +1,418 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Thaung Naing Soe | Computing Professional</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #2563eb;
+      --primary-dark: #1d4ed8;
+      --secondary: #1e293b;
+      --accent: #e11d48;
+      --light: #f8fafc;
+      --dark: #0f172a;
+      --gray: #64748b;
+      --border: 1px solid #e2e8f0;
+      --shadow: 0 20px 25px -5px rgba(0,0,0,0.02),
+                 0 8px 10px -6px rgba(0,0,0,0.02);
+      --radius: 0.5rem;
+    }
+    
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #ffffff;
+      color: var(--dark);
+      line-height: 1.6;
+      margin: 0;
+      padding: 0;
+    }
+    
+    .container {
+      max-width: 900px;
+      margin: 2rem auto;
+      padding: 0 1rem;
+    }
+    
+    .cv-wrapper {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 2rem;
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      overflow: hidden;
+      position: relative;
+    }
+    
+    /* Sidebar */
+    .sidebar {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: white;
+      padding: 2.5rem 1.5rem;
+      position: relative;
+    }
+    
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      margin: 0 auto 1.5rem;
+      border: 4px solid rgba(255,255,255,0.2);
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--primary);
+      font-size: 3rem;
+      font-weight: 700;
+    }
+    
+    .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.8rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      text-align: center;
+    }
+    
+    .title {
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      margin-bottom: 2rem;
+    }
+    
+    .contact-info {
+      margin-bottom: 2rem;
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    
+    .contact-item i {
+      margin-right: 0.8rem;
+      width: 20px;
+      text-align: center;
+    }
+    
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin: 1.5rem 0 1rem;
+      position: relative;
+      padding-bottom: 0.5rem;
+    }
+    
+    .section-title::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background: rgba(255,255,255,0.5);
+    }
+    
+    .skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+    }
+    
+    .skill-tag {
+      background: rgba(255,255,255,0.1);
+      padding: 0.4rem 0.8rem;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 500;
+    }
+    
+    /* Main Content */
+    .main-content {
+      padding: 2.5rem;
+    }
+    
+    .main-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+      color: var(--primary);
+    }
+    
+    .summary {
+      margin-bottom: 2rem;
+      line-height: 1.7;
+      color: var(--gray);
+    }
+    
+    .timeline {
+      position: relative;
+      padding-left: 2rem;
+    }
+    
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 7px;
+      height: 100%;
+      width: 2px;
+      background: #e2e8f0;
+    }
+    
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+    
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 5px;
+      left: -2rem;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: var(--primary);
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+    
+    .timeline-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    
+    .timeline-title {
+      font-weight: 600;
+      font-size: 1.1rem;
+    }
+    
+    .timeline-date {
+      color: var(--gray);
+      font-size: 0.85rem;
+    }
+    
+    .timeline-subtitle {
+      color: var(--primary);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+    }
+    
+    .timeline-content {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .project-card {
+      background: #f8fafc;
+      border-radius: var(--radius);
+      padding: 1rem;
+      margin-bottom: 1rem;
+      border-left: 3px solid var(--primary);
+    }
+    
+    .project-title {
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+    
+    .project-desc {
+      color: var(--gray);
+      font-size: 0.9rem;
+    }
+    
+    .achievements-list {
+      list-style-type: none;
+    }
+    
+    .achievements-list li {
+      position: relative;
+      padding-left: 1.5rem;
+      margin-bottom: 0.5rem;
+    }
+    
+    .achievements-list li::before {
+      content: '✓';
+      position: absolute;
+      left: 0;
+      color: var(--primary);
+      font-weight: bold;
+    }
+    
+    /* Responsive */
+    @media (max-width: 768px) {
+      .cv-wrapper {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        padding: 2rem;
+      }
+      .main-content {
+        padding: 2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="cv-wrapper">
+      <!-- Sidebar -->
+      <div class="sidebar">
+        <div class="avatar"><img src="" alt=""></div>
+        <h1 class="name">Thaung Naing Soe</h1>
+        <div class="title">Computing Professional</div>
+        
+        <div class="contact-info">
+          <div class="section-title">Contact</div>
+          <div class="contact-item">
+            <i class="fas fa-phone"></i>
+            <span>+95 782012467</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-envelope"></i>
+            <span>thaungnaingsoe39@gmail.com</span>
+          </div>
+          <div class="contact-item">
+            <i class="fas fa-map-marker-alt"></i>
+            <span>Yangon, Myanmar</span>
+          </div>
+        </div>
+        
+        <div class="skills-section">
+          <div class="section-title">Technical Skills</div>
+          <div class="skills">
+            <span class="skill-tag">Python</span>
+            <span class="skill-tag">JavaScript</span>
+            <span class="skill-tag">HTML/CSS</span>
+            <span class="skill-tag">SQL</span>
+            <span class="skill-tag">Database Design</span>
+            <span class="skill-tag">Networking</span>
+            <span class="skill-tag">Security</span>
+            <span class="skill-tag">Systems Analysis</span>
+          </div>
+        </div>
+        
+        <div class="languages-section">
+          <div class="section-title">Languages</div>
+          <div class="skills">
+            <span class="skill-tag">English (C1 Advanced)</span>
+            <span class="skill-tag">Burmese (Native)</span>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Main Content -->
+      <div class="main-content">
+        <h2 class="main-title">Professional Profile</h2>
+        <p class="summary">
+          Highly motivated Computing professional currently pursuing a Level 5 Diploma in Computing at KMD College in partnership with the University of Greenwich. Demonstrated excellence in software development, database systems, and network security. Recognized for academic achievements, analytical skills, and the ability to develop innovative technical solutions.
+        </p>
+        
+        <div class="section-title">Education</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <div class="timeline-title">KMD College & University of Greenwich</div>
+              <div class="timeline-date">2025 - Current</div>
+            </div>
+            <div class="timeline-subtitle">Level 5 Diploma in Computing</div>
+            <div class="timeline-content">
+              <ul style="margin-left: 1rem; list-style-type: disc;">
+                <li>Maintaining distinction grades across all subjects</li>
+                <li>Specializing in Software Development, Database Systems, Network Security</li>
+                <li>Participating in academic research projects and coding competitions</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <div class="timeline-title">KMD College & University of Greenwich</div>
+              <div class="timeline-date">2024 - 2025</div>
+            </div>
+            <div class="timeline-subtitle">Level 4 Diploma in Computing</div>
+            <div class="timeline-content">
+              <ul style="margin-left: 1rem; list-style-type: disc;">
+                <li>Graduated in top 10% of class with 7 Distinctions</li>
+                <li>Key areas: Computer Networks, Database Systems, Web Development</li>
+                <li>Developed comprehensive Student Management System</li>
+              </ul>
+            </div>
+          </div>
+
+           <div class="timeline-item">
+            <div class="timeline-header">
+              <div class="timeline-title">KMD College & University of Greenwich</div>
+              <div class="timeline-date">2023 - 2024</div>
+            </div>
+            <div class="timeline-subtitle">Level 3 Diploma in Computing</div>
+            <div class="timeline-content">
+              <ul style="margin-left: 1rem; list-style-type: disc;">
+                <li>Graduated in top 10% of class with 7 Distinctions</li>
+                <li>Key areas: Computer Networks, Database Systems, Web Development</li>
+                <li>Developed comprehensive Student Management System</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-title">English Proficiency</div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-header">
+              <div class="timeline-title">International House Yangon</div>
+              <div class="timeline-date">2025</div>
+            </div>
+            <div class="timeline-subtitle">Advanced (C1) Certification</div>
+            <div class="timeline-content">
+              <ul style="margin-left: 1rem; list-style-type: disc;">
+                <li>Excelled in academic writing and technical communication</li>
+                <li>Active participant in debates and discussion forums</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        
+        <div class="section-title">Projects</div>
+        <div class="project-card">
+          <div class="project-title">Student Management System</div>
+          <div class="project-desc">
+            Developed a comprehensive web-based system for managing student records, attendance, and academic progress with user authentication and reporting features.
+          </div>
+        </div>
+        
+        <div class="project-card">
+          <div class="project-title">Database Design for E-Commerce</div>
+          <div class="project-desc">
+            Architected a relational database system for an online shopping platform, implementing normalization principles and efficient query structures.
+          </div>
+        </div>
+        
+        <div class="section-title">Achievements</div>
+        <ul class="achievements-list">
+          <li>Consistent Distinction grades in all computing modules</li>
+          <li>Recognition for excellence in English proficiency studies</li>
+          <li>Participated in national-level programming competitions</li>
+          <li>Perfect attendance record throughout academic career</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
