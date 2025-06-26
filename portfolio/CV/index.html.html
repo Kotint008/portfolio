@@ -92,6 +92,7 @@
             justify-content: center;
             gap: 15px;
             margin-top: 20px;
+            text-decoration: none;
         }
         
         .download-btn {
@@ -439,6 +440,11 @@
             border-radius: 20px;
             font-size: 0.8rem;
             font-weight: 500;
+        }
+
+        .fas fa-file-pdf
+        {
+            text-decoration: none;
         }
         
         .project-links {
@@ -861,9 +867,9 @@
                     </div>
                 </div>
                 <div class="header-actions">
-                    <button id="downloadPdf" class="download-btn">
-                        <i class="fas fa-file-pdf"></i> Download as PDF
-                    </button>
+                     <a href="../CV/Thaung_Naing_Soe_CV (35).pdf" download="Thaung_Naing_Soe_CV.pdf" class="download-btn">
+        <i class="fas fa-file-pdf"></i> Download as PDF
+    </a>
                 </div>
             </div>
         </div>
@@ -996,12 +1002,12 @@
                         <img src="../Image/project1.png" alt="Student Management System">
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Student Management System</h3>
+                        <h3 class="project-title">E-Commerce Website</h3>
                         <p class="project-description">With only HTML and CSS, this web store is hand-coded, guaranteeing clear semantics and no framework overhead.</p>
                         <div class="project-tech">
-                            <span class="tech-tag">Java</span>
-                            <span class="tech-tag">MySQL</span>
-                            <span class="tech-tag">Swing</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">React</span>
                         </div>
                     </div>
                 </div>
@@ -1012,12 +1018,14 @@
                         <img src="../Image/project2.png" alt="E-Commerce Website">
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">E-Commerce Website</h3>
+                        <h3 class="project-title">Status Activity Progress</h3>
                         <p class="project-description">For quick performance, the Android app uses Kotlin. It also uses the device's geolocation APIs to tag every workout with GPS information.</p>
                         <div class="project-tech">
                             <span class="tech-tag">HTML/CSS</span>
                             <span class="tech-tag">JavaScript</span>
                             <span class="tech-tag">PHP</span>
+                            <span class="tech-tag">Kotlin</span>
+
                         </div>
                     </div>
                 </div>
@@ -1028,10 +1036,12 @@
                         <img src="../Image/project3.png" alt="Network Security Tool">
                     </div>
                     <div class="project-content">
-                        <h3 class="project-title">Network Security Tool</h3>
+                        <h3 class="project-title">Offer Various Recipes</h3>
                         <p class="project-description">The website offers a full-stack recipe experience, with the front end built with the Bootstrap framework and the back end using vanilla PHP.(Admin panel included.)</p>
                         <div class="project-tech">
-                            <span class="tech-tag">Python</span>
+                            <span class="tech-tag">HTML/CSS</span>
+                            <span class="tech-tag">JavaScript</span>
+                            <span class="tech-tag">PHP</span>
                             <span class="tech-tag">Network Security</span>
                             <span class="tech-tag">Scapy</span>
                         </div>
@@ -1091,7 +1101,7 @@
                     </div>
                     <div class="social-links">
                         <a href="#" class="social-link"><i class="fab fa-linkedin-in"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-github"></i></a>
+                        <a href="https://github.com/Kotint008" class="social-link"><i class="fab fa-github"></i></a>
                         <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
                     </div>
                 </div>
@@ -1107,10 +1117,7 @@
         </div>
     </footer>
 
-    <script>
-        // Initialize jsPDF
-        const { jsPDF } = window.jspdf;
-
+   <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Tab Navigation
             const tabs = document.querySelectorAll('.nav-tab');
@@ -1118,11 +1125,8 @@
             
             tabs.forEach(tab => {
                 tab.addEventListener('click', () => {
-                    // Remove active class from all tabs and contents
                     tabs.forEach(t => t.classList.remove('active'));
                     tabContents.forEach(c => c.classList.remove('active'));
-                    
-                    // Add active class to clicked tab and corresponding content
                     tab.classList.add('active');
                     const tabId = tab.getAttribute('data-tab');
                     document.getElementById(tabId).classList.add('active');
@@ -1132,19 +1136,12 @@
             // Back to top button
             const backToTop = document.getElementById('backToTop');
             window.addEventListener('scroll', () => {
-                if (window.pageYOffset > 300) {
-                    backToTop.style.display = 'inline-block';
-                } else {
-                    backToTop.style.display = 'none';
-                }
+                backToTop.style.display = window.pageYOffset > 300 ? 'inline-block' : 'none';
             });
             
             backToTop.addEventListener('click', (e) => {
                 e.preventDefault();
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             });
             
             // Form submission
@@ -1155,469 +1152,30 @@
                 contactForm.reset();
             });
 
-            // PDF Download Functionality
+            // PDF Download Functionality - Simplified to download existing PDF
             const downloadPdfBtn = document.getElementById('downloadPdf');
-            downloadPdfBtn.addEventListener('click', generatePdf);
+            downloadPdfBtn.addEventListener('click', downloadPdf);
 
-            async function generatePdf() {
-                // Create a new PDF document
-                const pdf = new jsPDF('p', 'mm', 'a4');
-                
+            function downloadPdf() {
                 // Show loading state
-                downloadPdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Generating PDF...';
+                const originalBtnText = downloadPdfBtn.innerHTML;
+                downloadPdfBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing PDF...';
                 downloadPdfBtn.disabled = true;
                 
                 try {
-                    // Create a PDF-friendly version of the content
-                    const pdfContent = document.createElement('div');
-                    pdfContent.style.width = '210mm';
-                    pdfContent.style.padding = '20px';
-                    pdfContent.style.fontFamily = "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif";
-                    
-                    // Add header
-                    const header = document.createElement('div');
-                    header.style.display = 'flex';
-                    header.style.alignItems = 'center';
-                    header.style.marginBottom = '20px';
-                    header.style.borderBottom = '2px solid #3498db';
-                    header.style.paddingBottom = '20px';
-                    
-                    // Add profile image
-                    const img = document.querySelector('.profile-img').cloneNode(true);
-                    img.style.width = '80px';
-                    img.style.height = '80px';
-                    img.style.border = '3px solid #eee';
-                    img.style.marginRight = '20px';
-                    header.appendChild(img);
-                    
-                    // Add header content
-                    const headerContent = document.createElement('div');
-                    const name = document.createElement('h1');
-                    name.textContent = 'Thaung Naing Soe';
-                    name.style.margin = '0';
-                    name.style.fontSize = '24pt';
-                    name.style.color = '#2c3e50';
-                    
-                    const title = document.createElement('p');
-                    title.textContent = 'Computer Science Student | Software Developer | Tech Enthusiast';
-                    title.style.margin = '5px 0';
-                    title.style.fontSize = '12pt';
-                    title.style.color = '#333';
-                    
-                    headerContent.appendChild(name);
-                    headerContent.appendChild(title);
-                    
-                    // Add contact info
-                    const contactInfo = document.createElement('div');
-                    contactInfo.style.display = 'flex';
-                    contactInfo.style.flexWrap = 'wrap';
-                    contactInfo.style.gap = '15px';
-                    contactInfo.style.marginTop = '10px';
-                    
-                    const phone = document.createElement('div');
-                    phone.innerHTML = '<strong>Phone:</strong> +959782012467';
-                    
-                    const email = document.createElement('div');
-                    email.innerHTML = '<strong>Email:</strong> thaungnaingsoe39@gmail.com';
-                    
-                    const location = document.createElement('div');
-                    location.innerHTML = '<strong>Location:</strong> Yangon, Myanmar';
-                    
-                    contactInfo.appendChild(phone);
-                    contactInfo.appendChild(email);
-                    contactInfo.appendChild(location);
-                    
-                    headerContent.appendChild(contactInfo);
-                    header.appendChild(headerContent);
-                    pdfContent.appendChild(header);
-                    
-                    // Add About section
-                    const aboutSection = document.createElement('div');
-                    aboutSection.style.marginBottom = '20px';
-                    
-                    const aboutTitle = document.createElement('h2');
-                    aboutTitle.textContent = 'About Me';
-                    aboutTitle.style.fontSize = '18pt';
-                    aboutTitle.style.color = '#2c3e50';
-                    aboutTitle.style.borderBottom = '2px solid #3498db';
-                    aboutTitle.style.paddingBottom = '5px';
-                    aboutTitle.style.marginBottom = '15px';
-                    
-                    const aboutText = document.createElement('div');
-                    aboutText.innerHTML = `
-                        <p>Highly motivated Computer Science student with a passion for software development and problem-solving. Currently pursuing a Level 5 Diploma in Computing with distinction grades across all subjects. Strong foundation in programming, database systems, and web development.</p>
-                        <p>Proven ability to learn quickly and apply technical knowledge to real-world projects. Excellent communication skills with C1 Advanced English proficiency. Committed to continuous learning and professional growth in the tech industry.</p>
-                    `;
-                    aboutText.style.lineHeight = '1.6';
-                    
-                    aboutSection.appendChild(aboutTitle);
-                    aboutSection.appendChild(aboutText);
-                    pdfContent.appendChild(aboutSection);
-                    
-                    // Add Skills section
-                    const skillsSection = document.createElement('div');
-                    skillsSection.style.marginBottom = '20px';
-                    
-                    const skillsTitle = document.createElement('h2');
-                    skillsTitle.textContent = 'Technical Skills';
-                    skillsTitle.style.fontSize = '18pt';
-                    skillsTitle.style.color = '#2c3e50';
-                    skillsTitle.style.borderBottom = '2px solid #3498db';
-                    skillsTitle.style.paddingBottom = '5px';
-                    skillsTitle.style.marginBottom = '15px';
-                    
-                    const skillsList = document.createElement('ul');
-                    skillsList.style.columns = '2';
-                    skillsList.style.columnGap = '30px';
-                    skillsList.style.listStyleType = 'none';
-                    skillsList.style.padding = '0';
-                    
-                    const skills = [
-                        'Programming:  JavaScript',
-                        'Web Development: HTML/CSS, PHP, React',
-                        'Database Systems: MySQL,',
-                        'Software Development Lifecycle',
-                        'Object-Oriented Design',
-                        'Network Security Fundamentals',
-                        'Problem Solving & Algorithms',
-                        'Version Control (Git)'
-                    ];
-                    
-                    skills.forEach(skill => {
-                        const item = document.createElement('li');
-                        item.textContent = skill;
-                        item.style.marginBottom = '8px';
-                        item.style.breakInside = 'avoid';
-                        item.style.position = 'relative';
-                        item.style.paddingLeft = '15px';
-                        
-                        const bullet = document.createElement('span');
-                        bullet.textContent = '•';
-                        bullet.style.position = 'absolute';
-                        bullet.style.left = '0';
-                        bullet.style.color = '#3498db';
-                        
-                        item.prepend(bullet);
-                        skillsList.appendChild(item);
-                    });
-                    
-                    skillsSection.appendChild(skillsTitle);
-                    skillsSection.appendChild(skillsList);
-                    pdfContent.appendChild(skillsSection);
-                    
-                    // Add Experience section
-                    const experienceSection = document.createElement('div');
-                    experienceSection.style.marginBottom = '20px';
-                    
-                    const experienceTitle = document.createElement('h2');
-                    experienceTitle.textContent = 'Professional Experience';
-                    experienceTitle.style.fontSize = '18pt';
-                    experienceTitle.style.color = '#2c3e50';
-                    experienceTitle.style.borderBottom = '2px solid #3498db';
-                    experienceTitle.style.paddingBottom = '5px';
-                    experienceTitle.style.marginBottom = '15px';
-                    
-                    experienceSection.appendChild(experienceTitle);
-                    
-                    // Add experience items
-                    const experienceItems = [
-                        {
-                            date: '2023 - Present',
-                            title: 'Self-Employed Developer',
-                            subtitle: 'Freelance Software Developer',
-                            highlights: [
-                                'Develop custom software solutions for small businesses and individuals',
-                                'Design and implement responsive websites and web applications',
-                                'Create database-driven applications with user-friendly interfaces',
-                                'Provide technical consultation and troubleshooting services'
-                            ]
-                        },
-                        {
-                            date: '2024',
-                            title: 'Trainee Developer',
-                            subtitle: 'KMD College',
-                            highlights: [
-                                'Participated in intensive software development training program',
-                                'Collaborated on team projects following Agile methodologies',
-                                'Gained hands-on experience with modern development tools',
-                                'Developed problem-solving skills through coding challenges'
-                            ]
-                        }
-                    ];
-                    
-                    experienceItems.forEach(item => {
-                        const expItem = document.createElement('div');
-                        expItem.style.marginBottom = '20px';
-                        expItem.style.padding = '15px';
-                        expItem.style.backgroundColor = '#f9f9f9';
-                        expItem.style.borderRadius = '5px';
-                        
-                        const date = document.createElement('div');
-                        date.textContent = item.date;
-                        date.style.fontSize = '10pt';
-                        date.style.color = '#7f8c8d';
-                        date.style.marginBottom = '5px';
-                        
-                        const title = document.createElement('h3');
-                        title.textContent = item.title;
-                        title.style.fontSize = '14pt';
-                        title.style.margin = '0 0 5px 0';
-                        title.style.color = '#2c3e50';
-                        
-                        const subtitle = document.createElement('h4');
-                        subtitle.textContent = item.subtitle;
-                        subtitle.style.fontSize = '12pt';
-                        subtitle.style.margin = '0 0 10px 0';
-                        subtitle.style.color = '#3498db';
-                        
-                        expItem.appendChild(date);
-                        expItem.appendChild(title);
-                        expItem.appendChild(subtitle);
-                        
-                        if (item.highlights && item.highlights.length > 0) {
-                            const highlights = document.createElement('ul');
-                            highlights.style.margin = '10px 0 0 0';
-                            highlights.style.paddingLeft = '20px';
-                            
-                            item.highlights.forEach(highlight => {
-                                const li = document.createElement('li');
-                                li.textContent = highlight;
-                                li.style.marginBottom = '5px';
-                                li.style.position = 'relative';
-                                li.style.paddingLeft = '15px';
-                                
-                                const bullet = document.createElement('span');
-                                bullet.textContent = '•';
-                                bullet.style.position = 'absolute';
-                                bullet.style.left = '0';
-                                bullet.style.color = '#3498db';
-                                
-                                li.prepend(bullet);
-                                highlights.appendChild(li);
-                            });
-                            
-                            expItem.appendChild(highlights);
-                        }
-                        
-                        experienceSection.appendChild(expItem);
-                    });
-                    
-                    pdfContent.appendChild(experienceSection);
-                    
-                    // Add Education section
-                    const educationSection = document.createElement('div');
-                    educationSection.style.marginBottom = '20px';
-                    
-                    const educationTitle = document.createElement('h2');
-                    educationTitle.textContent = 'Education';
-                    educationTitle.style.fontSize = '18pt';
-                    educationTitle.style.color = '#2c3e50';
-                    educationTitle.style.borderBottom = '2px solid #3498db';
-                    educationTitle.style.paddingBottom = '5px';
-                    educationTitle.style.marginBottom = '15px';
-                    
-                    educationSection.appendChild(educationTitle);
-                    
-                    // Add education items
-                    const educationItems = [
-                        {
-                            date: '2025 - Current',
-                            title: 'KMD College & University Of Greenwich',
-                            subtitle: 'Level 5 Diploma In Computing'
-                        },
-                        {
-                            date: '2025 - May',
-                            title: 'International House Yangon - The SPACE',
-                            subtitle: 'Advance - C1 English Proficiency'
-                        },
-                        {
-                            date: '2024 - 2025',
-                            title: 'NCC Education',
-                            subtitle: 'Level 5 Diploma In Computing'
-                        },
-                        {
-                            date: '2024 - 2025',
-                            title: 'NCC Education',
-                            subtitle: 'Level 4 Diploma In Computing'
-                        },
-                        {
-                            date: 'June - December 2024',
-                            title: 'General English',
-                            subtitle: 'Upper Intermediate - B2'
-                        },
-                        {
-                            date: '2023 - 2024',
-                            title: 'NCC Education',
-                            subtitle: 'Level 3 Diploma In Computing'
-                        }
-                    ];
-                    
-                    educationItems.forEach(item => {
-                        const eduItem = document.createElement('div');
-                        eduItem.style.marginBottom = '15px';
-                        eduItem.style.padding = '15px';
-                        eduItem.style.backgroundColor = '#f9f9f9';
-                        eduItem.style.borderRadius = '5px';
-                        
-                        const date = document.createElement('div');
-                        date.textContent = item.date;
-                        date.style.fontSize = '10pt';
-                        date.style.color = '#7f8c8d';
-                        date.style.marginBottom = '5px';
-                        
-                        const title = document.createElement('h3');
-                        title.textContent = item.title;
-                        title.style.fontSize = '14pt';
-                        title.style.margin = '0 0 5px 0';
-                        title.style.color = '#2c3e50';
-                        
-                        const subtitle = document.createElement('h4');
-                        subtitle.textContent = item.subtitle;
-                        subtitle.style.fontSize = '12pt';
-                        subtitle.style.margin = '0 0 5px 0';
-                        subtitle.style.color = '#3498db';
-                        
-                        eduItem.appendChild(date);
-                        eduItem.appendChild(title);
-                        eduItem.appendChild(subtitle);
-                        
-                        educationSection.appendChild(eduItem);
-                    });
-                    
-                    pdfContent.appendChild(educationSection);
-                    
-                    // Add Projects section
-                    const projectsSection = document.createElement('div');
-                    projectsSection.style.marginBottom = '20px';
-                    
-                    const projectsTitle = document.createElement('h2');
-                    projectsTitle.textContent = 'Projects';
-                    projectsTitle.style.fontSize = '18pt';
-                    projectsTitle.style.color = '#2c3e50';
-                    projectsTitle.style.borderBottom = '2px solid #3498db';
-                    projectsTitle.style.paddingBottom = '5px';
-                    projectsTitle.style.marginBottom = '15px';
-                    
-                    projectsSection.appendChild(projectsTitle);
-                    
-                    // Add project items
-                    const projectItems = [
-                        {
-                            title: 'Student Management System',
-                            description: 'Comprehensive system for managing student records, attendance, and academic performance.',
-                            technologies: ['Java', 'MySQL', 'Swing']
-                        },
-                        {
-                            title: 'E-Commerce Website',
-                            description: 'Responsive online store with product catalog and shopping cart functionality.',
-                            technologies: ['HTML/CSS', 'JavaScript', 'PHP']
-                        },
-                        {
-                            title: 'Network Security Tool',
-                            description: 'Python-based tool for network vulnerability scanning and testing.',
-                            technologies: ['Python', 'Network Security', 'Scapy']
-                        }
-                    ];
-                    
-                    projectItems.forEach(project => {
-                        const projectItem = document.createElement('div');
-                        projectItem.style.marginBottom = '20px';
-                        projectItem.style.padding = '15px';
-                        projectItem.style.backgroundColor = '#f9f9f9';
-                        projectItem.style.borderRadius = '5px';
-                        
-                        const title = document.createElement('h3');
-                        title.textContent = project.title;
-                        title.style.fontSize = '14pt';
-                        title.style.margin = '0 0 10px 0';
-                        title.style.color = '#2c3e50';
-                        
-                        const desc = document.createElement('p');
-                        desc.textContent = project.description;
-                        desc.style.marginBottom = '10px';
-                        desc.style.lineHeight = '1.6';
-                        
-                        projectItem.appendChild(title);
-                        projectItem.appendChild(desc);
-                        
-                        if (project.technologies && project.technologies.length > 0) {
-                            const techContainer = document.createElement('div');
-                            techContainer.style.display = 'flex';
-                            techContainer.style.flexWrap = 'wrap';
-                            techContainer.style.gap = '8px';
-                            techContainer.style.marginBottom = '10px';
-                            
-                            project.technologies.forEach(tech => {
-                                const tag = document.createElement('span');
-                                tag.textContent = tech;
-                                tag.style.backgroundColor = '#e0f2fe';
-                                tag.style.color = '#3498db';
-                                tag.style.padding = '3px 10px';
-                                tag.style.borderRadius = '20px';
-                                tag.style.fontSize = '10pt';
-                                
-                                techContainer.appendChild(tag);
-                            });
-                            
-                            projectItem.appendChild(techContainer);
-                        }
-                        
-                        projectsSection.appendChild(projectItem);
-                    });
-                    
-                    pdfContent.appendChild(projectsSection);
-                    
-                    // Add footer
-                    const footer = document.createElement('div');
-                    footer.style.textAlign = 'center';
-                    footer.style.marginTop = '20px';
-                    footer.style.paddingTop = '20px';
-                    footer.style.borderTop = '1px solid #eee';
-                    
-                    const copyright = document.createElement('p');
-                    copyright.textContent = '© 2025 Thaung Naing Soe. All Rights Reserved.';
-                    copyright.style.marginBottom = '10px';
-                    
-                    footer.appendChild(copyright);
-                    pdfContent.appendChild(footer);
-                    
-                    // Add the content to a hidden div for rendering
-                    const hiddenDiv = document.createElement('div');
-                    hiddenDiv.style.position = 'absolute';
-                    hiddenDiv.style.left = '-9999px';
-                    hiddenDiv.appendChild(pdfContent);
-                    document.body.appendChild(hiddenDiv);
-                    
-                    // Use html2canvas to capture the content
-                    const canvas = await html2canvas(pdfContent, {
-                        scale: 2,
-                        logging: false,
-                        useCORS: true,
-                        allowTaint: true
-                    });
-                    
-                    // Convert canvas to image data
-                    const imgData = canvas.toDataURL('image/png');
-                    
-                    // Calculate PDF dimensions
-                    const imgWidth = pdf.internal.pageSize.getWidth() - 20;
-                    const imgHeight = (canvas.height * imgWidth) / canvas.width;
-                    
-                    // Add image to PDF
-                    pdf.addImage(imgData, 'PNG', 10, 10, imgWidth, imgHeight);
-                    
-                    // Remove the hidden div
-                    document.body.removeChild(hiddenDiv);
-                    
-                    // Save the PDF
-                    pdf.save('Thaung_Naing_Soe_CV.pdf');
-                    
+                    // Create a temporary link element
+                    const link = document.createElement('a');
+                    link.href = 'Thaung_Naing_Soe_CV_(35).pdf'; // Path to your existing PDF file
+                    link.download = 'Thaung_Naing_Soe_CV.pdf'; // Name for the downloaded file
+                    document.body.appendChild(link);
+                    link.click();
+                    document.body.removeChild(link);
                 } catch (error) {
-                    console.error('Error generating PDF:', error);
-                    alert('Error generating PDF. Please try again.');
+                    console.error('Error downloading PDF:', error);
+                    alert('Error downloading PDF. Please try again.');
                 } finally {
                     // Restore button state
-                    downloadPdfBtn.innerHTML = '<i class="fas fa-file-pdf"></i> Download as PDF';
+                    downloadPdfBtn.innerHTML = originalBtnText;
                     downloadPdfBtn.disabled = false;
                 }
             }
